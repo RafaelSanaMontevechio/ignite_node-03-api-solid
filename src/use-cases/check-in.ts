@@ -1,4 +1,4 @@
-import { Checkin } from '@prisma/client';
+import { CheckIn } from '@prisma/client';
 
 import { CheckInsRepository } from '@/repositories/check-ins-repository';
 import { getDistanceBetweenCoordinates } from '@/utils/getDistanceBetweenCoordinates';
@@ -17,7 +17,7 @@ interface CheckInUseCaseRequest {
 }
 
 interface CheckInUseCaseResponse {
-  checkIn: Checkin;
+  checkIn: CheckIn;
 }
 
 export class CheckInUseCase {
@@ -41,8 +41,8 @@ export class CheckInUseCase {
     const distance = getDistanceBetweenCoordinates(
       { latitude: userLatitude, longitude: userLongitude },
       {
-        latitude: gym.latitute.toNumber(),
-        longitude: gym.longitute.toNumber(),
+        latitude: gym.latitude.toNumber(),
+        longitude: gym.longitude.toNumber(),
       },
     );
 

@@ -5,8 +5,8 @@ interface CreateGymUseCaseParams {
   title: string;
   description: string | null;
   phone: string | null;
-  latitute: number;
-  longitute: number;
+  latitude: number;
+  longitude: number;
 }
 
 interface CreateGymUseCaseResponse {
@@ -20,15 +20,15 @@ export class CreateGymUseCase {
     title,
     description,
     phone,
-    latitute,
-    longitute,
+    latitude,
+    longitude,
   }: CreateGymUseCaseParams): Promise<CreateGymUseCaseResponse> {
     const gym = await this.gymsRepository.create({
       title,
       description,
       phone,
-      latitute,
-      longitute,
+      latitude,
+      longitude,
     });
 
     return { gym };

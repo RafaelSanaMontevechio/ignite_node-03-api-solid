@@ -18,21 +18,13 @@ describe('Check-in Use Case', () => {
     gymsRepository = new InMemoryGymsRepository();
     checkInUseCase = new CheckInUseCase(checkInRepository, gymsRepository);
 
-    // await gymsRepository.create({
-    //   id: 'gym-01',
-    //   title: 'JavaScript Gym',
-    //   description: '',
-    //   phone: '',
-    //   latitute: -22.268366,
-    //   longitute: -45.9342073,
-    // });
-    gymsRepository.items.push({
-      id: 'gym-02',
-      title: 'Academia teste 2',
+    await gymsRepository.create({
+      id: 'gym-01',
+      title: 'JavaScript Gym',
       description: '',
       phone: '',
-      latitute: new Decimal(-22.2544753),
-      longitute: new Decimal(-45.93404),
+      latitude: -22.268366,
+      longitude: -45.9342073,
     });
 
     vi.useFakeTimers();
@@ -54,7 +46,7 @@ describe('Check-in Use Case', () => {
   });
 
   it('should not be able to check in twice in same day', async () => {
-    vi.setSystemTime(new Date(2022, 0, 20, 0, 0, 0));
+    vi.setSystemTime(new Date(2022, 0, 20, 8, 0, 0));
 
     await checkInUseCase.execute({
       gymId: 'gym-01',
@@ -101,8 +93,8 @@ describe('Check-in Use Case', () => {
       title: 'Academia teste 2',
       description: '',
       phone: '',
-      latitute: new Decimal(-22.2544753),
-      longitute: new Decimal(-45.93404),
+      latitude: new Decimal(-27.2092052),
+      longitude: new Decimal(-49.6401091),
     });
 
     await expect(() =>
