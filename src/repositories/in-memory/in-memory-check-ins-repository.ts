@@ -27,11 +27,19 @@ export class InMemoryCheckInsRepository implements CheckInsRepository {
   }
 
   async findManyByUserId(userId: string, page: number) {
-    const CheckIns = this.items
+    const checkIns = this.items
       .filter((checkIn) => checkIn.user_id === userId)
       .slice((page - 1) * 20, page * 20);
 
-    return CheckIns;
+    return checkIns;
+  }
+
+  async countByUserId(userId: string) {
+    const checkInsCount = this.items.filter(
+      (checkIn) => checkIn.user_id === userId,
+    ).length;
+
+    return checkInsCount;
   }
 
   async create(data: Prisma.CheckInUncheckedCreateInput) {
