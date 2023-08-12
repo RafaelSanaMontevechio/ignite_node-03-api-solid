@@ -3,6 +3,7 @@ import { CheckIn, Prisma } from '@prisma/client';
 import dayjs from 'dayjs';
 
 import { CheckInsRepository } from '../check-ins-repository';
+import { GetResult } from '@prisma/client/runtime/library';
 
 export class InMemoryCheckInsRepository implements CheckInsRepository {
   public items: CheckIn[] = [];
@@ -23,6 +24,14 @@ export class InMemoryCheckInsRepository implements CheckInsRepository {
     if (!checkOnSameDate) return null;
 
     return checkOnSameDate;
+  }
+
+  async findManyByUserId(userId: string, page: number) {
+    const CheckIns = this.items
+      .filter((checkIn) => checkIn.user_id === userId)
+      .slice((page - 1) * 20, page * 20);
+
+    return CheckIns;
   }
 
   async create(data: Prisma.CheckInUncheckedCreateInput) {
